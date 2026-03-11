@@ -17,7 +17,7 @@ if [[ -z "$VERSION" ]]; then
   exit 1
 fi
 
-echo "Building DevToolbox $VERSION (unsigned, Release)..."
+echo "Building DevToolbox $VERSION (self-signed, Release)..."
 
 rm -rf "$BUILD_DIR" "$DIST_DIR"
 mkdir -p "$DIST_DIR"
@@ -38,6 +38,9 @@ if [[ -z "$APP_PATH" ]]; then
   echo "Error: DevToolbox.app not found in build output." >&2
   exit 1
 fi
+
+echo "Self-signing DevToolbox.app (ad-hoc)..."
+codesign --force --deep --sign - "$APP_PATH"
 
 ZIP_NAME="DevToolbox-${VERSION}.zip"
 ZIP_PATH="$DIST_DIR/$ZIP_NAME"
