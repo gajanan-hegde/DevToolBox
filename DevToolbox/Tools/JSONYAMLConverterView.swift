@@ -185,7 +185,7 @@ struct JSONYAMLConverterView: View {
     /// native Swift types so Yams doesn't serialise integers in scientific notation
     /// (e.g. NSNumber(60) → "6e+1"). Mirrors YAMLEditorModel.toYAMLObject.
     private func normalizeForYAML(_ obj: Any) -> Any {
-        // Bool must be checked before NSNumber — Bool bridges to NSNumber in ObjC
+        // Bool must be checked before NSNumber - Bool bridges to NSNumber in ObjC
         if let b = obj as? Bool   { return b }
         if let n = obj as? NSNumber {
             return n.doubleValue.truncatingRemainder(dividingBy: 1) == 0

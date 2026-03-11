@@ -200,7 +200,7 @@ struct JWTDecoderView: View {
                 let kid = jwt.kid?.string ?? "required key"
                 return "Signing key '\(kid)' not found in JWKS"
             case .missingKIDHeader:
-                return "JWT has no 'kid' header — cannot select a key from JWKS"
+                return "JWT has no 'kid' header - cannot select a key from JWKS"
             case .signatureVerificationFailed:
                 return "Invalid signature"
             case .claimVerificationFailure:

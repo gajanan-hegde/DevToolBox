@@ -228,7 +228,7 @@ struct EpochConverterView: View {
     private func safeFormat(_ value: Double) -> String {
         guard value.isFinite,
               value >= Double(Int64.min),
-              value <= Double(Int64.max) else { return "—" }
+              value <= Double(Int64.max) else { return "-" }
         return String(Int64(value))
     }
 

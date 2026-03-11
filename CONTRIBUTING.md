@@ -13,7 +13,7 @@ Thanks for your interest in contributing! Here's how to get involved.
 
 ## Requesting Features
 
-Open an issue with the label `enhancement`. Describe the problem you're trying to solve, not just the solution you have in mind — this helps with discussion.
+Open an issue with the label `enhancement`. Describe the problem you're trying to solve, not just the solution you have in mind - this helps with discussion.
 
 ## Submitting Pull Requests
 
@@ -21,8 +21,8 @@ Open an issue with the label `enhancement`. Describe the problem you're trying t
    ```bash
    git checkout -b feature/my-improvement
    ```
-2. Make your changes. Keep them focused — one feature or fix per PR.
-3. Match the existing Swift style (no formatter config required — follow what's already there).
+2. Make your changes. Keep them focused - one feature or fix per PR.
+3. Match the existing Swift style (no formatter config required - follow what's already there).
 4. **Commit** with a clear message:
    ```bash
    git commit -m "Add URL scheme support for YAML tool"
@@ -34,7 +34,7 @@ Open an issue with the label `enhancement`. Describe the problem you're trying t
 
 - SwiftUI and Swift idioms over UIKit patterns
 - Prefer value types (`struct`) over classes where appropriate
-- No third-party dependencies — keep it self-contained
+- No third-party dependencies - keep it self-contained
 
 ## License
 

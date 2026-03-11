@@ -1,6 +1,6 @@
 # DevToolbox
 
-A native macOS developer utility app with a collection of everyday tools — no subscriptions, no telemetry, no internet required.
+A native macOS developer utility app with a collection of everyday tools - no subscriptions, no telemetry, no internet required.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -24,7 +24,7 @@ A native macOS developer utility app with a collection of everyday tools — no 
 
 - Launch any tool directly from **Spotlight** or **Siri** via App Intents
 - Deep-link with clipboard content: `devtoolbox://open?input=<encoded>`
-- **Content detection** — paste anything and DevToolbox routes it to the right tool automatically
+- **Content detection** - paste anything and DevToolbox routes it to the right tool automatically
 - **Raycast** support via a shell script (no extension required)
 
 ## Requirements
@@ -42,8 +42,8 @@ open DevToolbox.xcodeproj
 
 Then press **⌘R** in Xcode to build and run.
 
-No external dependencies or package setup required — the project builds out of the box.
+No external dependencies or package setup required - the project builds out of the box.
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT - see [LICENSE](LICENSE) for details.

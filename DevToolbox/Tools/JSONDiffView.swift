@@ -198,7 +198,7 @@ struct JSONDiffView: View {
     @State private var diffRows: [LineDiffRow] = []
     @State private var debounceTask: Task<Void, Never>? = nil
 
-    // Scroll-sync coordinator — stored in @State so it persists across re-renders
+    // Scroll-sync coordinator - stored in @State so it persists across re-renders
     // without needing ObservableObject (we never publish changes to SwiftUI). (Task 5.1)
     @State private var syncCoordinator = DiffScrollSyncCoordinator()
 

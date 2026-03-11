@@ -11,20 +11,20 @@ enum ContentDetector {
 
         var candidates: [Tool] = []
 
-        // 1. JWT — three base64url segments separated by dots
+        // 1. JWT - three base64url segments separated by dots
         if matchesJWT(s) { candidates.append(.jwtDecoder) }
 
-        // 2. JSON — parseable object or array
+        // 2. JSON - parseable object or array
         let json = matchesJSON(s)
         if json { candidates.append(.jsonEditor) }
 
-        // 3. YAML — parseable via Yams, but not already flagged as JSON
+        // 3. YAML - parseable via Yams, but not already flagged as JSON
         if !json, matchesYAML(s) { candidates.append(.yamlEditor) }
 
-        // 4. URL-encoded — contains at least one %XX sequence
+        // 4. URL-encoded - contains at least one %XX sequence
         if matchesURLEncoded(s) { candidates.append(.urlEncoder) }
 
-        // 5. Base64 — charset + length + valid UTF-8 decode
+        // 5. Base64 - charset + length + valid UTF-8 decode
         if matchesBase64(s) { candidates.append(.base64Encoder) }
 
         return candidates

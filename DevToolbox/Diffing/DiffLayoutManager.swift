@@ -12,7 +12,7 @@ final class DiffLayoutManager: NSLayoutManager {
 
     /// Character ranges + colours to paint as full-width background bands.
     /// Set from the main thread via `updateNSView`; read during drawing on the
-    /// main thread — no synchronisation needed.
+    /// main thread - no synchronisation needed.
     var lineHighlights: [(characterRange: NSRange, color: NSColor)] = []
 
     // MARK: - Drawing (Tasks 2.2, 2.3)
