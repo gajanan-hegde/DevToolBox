@@ -49,7 +49,7 @@ Download the latest `DevToolbox-<version>.zip` from [GitHub Releases](https://gi
 
 ## Allowing the app through Gatekeeper
 
-> **Note:** I didn't pay the Apple tax for a developer license, so the app isn't notarized. macOS will block it on first launch — follow the steps below to allow it.
+> **Note:** I didn't pay the Apple tax for a developer license, so the app isn't notarized. macOS will block it on first launch - follow the steps below to allow it.
 
 1. Try to open DevToolbox — macOS will show a "cannot be opened" alert. Click **Done** (or **OK**).
 2. Open **System Settings → Privacy & Security**.
