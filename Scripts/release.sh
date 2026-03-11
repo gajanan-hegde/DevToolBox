@@ -76,7 +76,7 @@ ZIP_PATH=$(awk '/Output:/ {print $2}' "$BUILD_LOG")
 echo ""
 echo "Creating GitHub release $TAG..."
 gh release create "$TAG" "$ZIP_PATH" \
-  --title "DevToolbox $VERSION" \
+  --title "$TAG" \
   --generate-notes
 
 # ── 7. Update homebrew tap ────────────────────────────────────────────────────
