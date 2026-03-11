@@ -25,6 +25,11 @@ fi
 
 # ── 2. Ask for version ────────────────────────────────────────────────────────
 
+echo "Latest tag:     $(git describe --tags --abbrev=0 2>/dev/null || echo '(none)')"
+echo "Latest release: $(gh release list --limit 1 --json tagName,publishedAt \
+  --jq '.[0] | "\(.tagName)  \(.publishedAt | split("T")[0])"' 2>/dev/null || echo '(none)')"
+echo ""
+
 read -rp "Release version (e.g. 1.1): " VERSION
 [[ -z "$VERSION" ]] && { echo "Error: version cannot be empty." >&2; exit 1; }
 
@@ -35,10 +40,11 @@ if git tag --list | grep -qx "$TAG"; then
   exit 1
 fi
 
-# Bump MARKETING_VERSION in the Xcode project and commit
+# Bump MARKETING_VERSION directly in project.pbxproj (avoids agvtool touching Info.plist)
 echo "Setting MARKETING_VERSION → $VERSION"
-xcrun agvtool new-marketing-version "$VERSION" > /dev/null
-git add DevToolbox.xcodeproj/project.pbxproj DevToolbox/Info.plist
+sed -i '' "s/MARKETING_VERSION = [^;]*/MARKETING_VERSION = $VERSION/" \
+  DevToolbox.xcodeproj/project.pbxproj
+git add DevToolbox.xcodeproj/project.pbxproj
 git commit -m "Release $VERSION"
 
 # ── 3 & 4. Tag and push ───────────────────────────────────────────────────────
@@ -59,9 +65,10 @@ trap 'rm -f "$BUILD_LOG"; rm -rf "$TAP_DIR"' EXIT
 "$SCRIPT_DIR/build-release.sh" 2>&1 | tee "$BUILD_LOG"
 
 SHA256=$(awk '/SHA256:/ {print $2}' "$BUILD_LOG")
-ZIP_PATH="$REPO_ROOT/dist/DevToolbox-${VERSION}.zip"
+ZIP_PATH=$(awk '/Output:/ {print $2}' "$BUILD_LOG")
 
-[[ -z "$SHA256" ]]    && { echo "Error: could not extract SHA256 from build output." >&2; exit 1; }
+[[ -z "$SHA256" ]]     && { echo "Error: could not extract SHA256 from build output." >&2; exit 1; }
+[[ -z "$ZIP_PATH" ]]   && { echo "Error: could not extract zip path from build output." >&2; exit 1; }
 [[ ! -f "$ZIP_PATH" ]] && { echo "Error: zip not found: $ZIP_PATH" >&2; exit 1; }
 
 # ── 6. Create GitHub release ──────────────────────────────────────────────────
