@@ -38,7 +38,7 @@ fi
 # Bump MARKETING_VERSION in the Xcode project and commit
 echo "Setting MARKETING_VERSION → $VERSION"
 xcrun agvtool new-marketing-version "$VERSION" > /dev/null
-git add DevToolbox.xcodeproj/project.pbxproj
+git add DevToolbox.xcodeproj/project.pbxproj DevToolbox/Info.plist
 git commit -m "Release $VERSION"
 
 # ── 3 & 4. Tag and push ───────────────────────────────────────────────────────
