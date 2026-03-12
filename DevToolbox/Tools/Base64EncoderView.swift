@@ -11,16 +11,22 @@ struct Base64EncoderView: View {
     var body: some View {
         HSplitView {
             VStack {
-                Text("Decoded (UTF-8)")
-                    .font(.headline)
+                HStack {
+                    Text("Decoded (UTF-8)").font(.headline)
+                    Spacer()
+                    CopyButton(value: decodedString)
+                }
                 LineNumberedTextEditor(text: $decodedString, focusOnAppear: true)
                     .onChange(of: decodedString) { activeField = .decoded }
             }
             .padding()
 
             VStack {
-                Text("Encoded (Base64)")
-                    .font(.headline)
+                HStack {
+                    Text("Encoded (Base64)").font(.headline)
+                    Spacer()
+                    CopyButton(value: encodedString)
+                }
                 LineNumberedTextEditor(text: $encodedString)
                     .onChange(of: encodedString) { activeField = .encoded }
             }

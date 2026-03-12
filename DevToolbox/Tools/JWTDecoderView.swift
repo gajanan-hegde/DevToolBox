@@ -24,7 +24,11 @@ struct JWTDecoderView: View {
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Encoded Token").font(.headline)
+                        HStack {
+                            Text("Encoded Token").font(.headline)
+                            Spacer()
+                            CopyButton(value: encodedToken)
+                        }
                         TextEditor(text: $encodedToken)
                             .focused($encodedTokenFocused)
                             .font(.system(.body, design: .monospaced))
@@ -81,7 +85,11 @@ struct JWTDecoderView: View {
                 GeometryReader { geo in
                     VStack(spacing: 0) {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Header").font(.headline)
+                            HStack {
+                                Text("Header").font(.headline)
+                                Spacer()
+                                CopyButton(value: headerText)
+                            }
                             panel(value: headerValue, text: $headerText)
                         }
                         .padding(.horizontal, 12)
@@ -91,7 +99,11 @@ struct JWTDecoderView: View {
                         Divider()
 
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Payload").font(.headline)
+                            HStack {
+                                Text("Payload").font(.headline)
+                                Spacer()
+                                CopyButton(value: payloadText)
+                            }
                             panel(value: payloadValue, text: $payloadText)
                         }
                         .padding(.horizontal, 12)

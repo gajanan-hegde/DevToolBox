@@ -104,6 +104,10 @@ struct YAMLEditorView: View {
 
             Spacer()
 
+            CopyButton(value: model.text)
+
+            Divider().frame(height: 16)
+
             statusIndicator
         }
         .padding(.horizontal, 12)

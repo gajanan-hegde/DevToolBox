@@ -11,16 +11,22 @@ struct URLEncoderView: View {
     var body: some View {
         HSplitView {
             VStack {
-                Text("Decoded")
-                    .font(.headline)
+                HStack {
+                    Text("Decoded").font(.headline)
+                    Spacer()
+                    CopyButton(value: decodedString)
+                }
                 LineNumberedTextEditor(text: $decodedString, focusOnAppear: true)
                     .onChange(of: decodedString) { activeField = .decoded }
             }
             .padding()
 
             VStack {
-                Text("Encoded")
-                    .font(.headline)
+                HStack {
+                    Text("Encoded").font(.headline)
+                    Spacer()
+                    CopyButton(value: encodedString)
+                }
                 LineNumberedTextEditor(text: $encodedString)
                     .onChange(of: encodedString) { activeField = .encoded }
             }

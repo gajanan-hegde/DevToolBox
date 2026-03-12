@@ -28,9 +28,12 @@ struct JSONYAMLConverterView: View {
         VStack(spacing: 0) {
             HSplitView {
                 VStack(spacing: 0) {
-                    Text("JSON")
-                        .font(.headline)
-                        .padding(.vertical, 6)
+                    HStack {
+                        Text("JSON").font(.headline)
+                        Spacer()
+                        CopyButton(value: jsonText)
+                    }
+                    .padding(.vertical, 6)
                     LineNumberedTextEditor(                          // Tasks 3.5
                         text: $jsonText,
                         errorLine: jsonError?.line,
@@ -41,9 +44,12 @@ struct JSONYAMLConverterView: View {
                 .padding(.horizontal)
 
                 VStack(spacing: 0) {
-                    Text("YAML")
-                        .font(.headline)
-                        .padding(.vertical, 6)
+                    HStack {
+                        Text("YAML").font(.headline)
+                        Spacer()
+                        CopyButton(value: yamlText)
+                    }
+                    .padding(.vertical, 6)
                     LineNumberedTextEditor(                          // Tasks 3.6
                         text: $yamlText,
                         errorLine: yamlError?.line,

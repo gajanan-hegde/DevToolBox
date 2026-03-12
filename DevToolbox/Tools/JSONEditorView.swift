@@ -116,6 +116,10 @@ struct JSONEditorView: View {
 
             Spacer()
 
+            CopyButton(value: model.text)
+
+            Divider().frame(height: 16)
+
             // Status indicator
             statusIndicator
         }

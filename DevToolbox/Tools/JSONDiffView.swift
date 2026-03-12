@@ -253,9 +253,12 @@ struct JSONDiffView: View {
         VStack(spacing: 0) {
             HSplitView {
                 VStack(spacing: 0) {
-                    Text("Document 1")
-                        .font(.headline)
-                        .padding(.vertical, 6)
+                    HStack {
+                        Text("Document 1").font(.headline)
+                        Spacer()
+                        CopyButton(value: text1)
+                    }
+                    .padding(.vertical, 6)
                     LineNumberedTextEditor(
                         text: $text1,
                         focusOnAppear: true,
@@ -269,9 +272,12 @@ struct JSONDiffView: View {
                 .padding(.horizontal)
 
                 VStack(spacing: 0) {
-                    Text("Document 2")
-                        .font(.headline)
-                        .padding(.vertical, 6)
+                    HStack {
+                        Text("Document 2").font(.headline)
+                        Spacer()
+                        CopyButton(value: text2)
+                    }
+                    .padding(.vertical, 6)
                     LineNumberedTextEditor(
                         text: $text2,
                         lineHighlights: rightHighlights,
