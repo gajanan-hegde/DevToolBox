@@ -30,6 +30,7 @@ xcodebuild \
   CODE_SIGN_IDENTITY="" \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGNING_ALLOWED=NO \
+  MACOSX_DEPLOYMENT_TARGET=14.0 \
   build
 
 APP_PATH=$(find "$BUILD_DIR" -name "DevToolbox.app" -maxdepth 6 | head -1)

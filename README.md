@@ -31,7 +31,7 @@ A native macOS developer utility app with a collection of everyday tools - no su
 
 ## Requirements
 
-- macOS 26 or later
+- macOS 14 or later
 - Xcode 26 or later (to build from source)
 
 ## Installation
