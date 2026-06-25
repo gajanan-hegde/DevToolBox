@@ -428,14 +428,18 @@ final class ErrorGutterRulerView: NSRulerView {
 
         var lineNumber = 1
 
-        layoutManager.enumerateLineFragments(forGlyphRange: layoutManager.glyphRange(forCharacterRange: fullRange, actualCharacterRange: nil)) { _, usedRect, _, _, _ in
-            let lineRect = usedRect
-            let lineY = lineRect.minY - visibleRect.minY
+        layoutManager.enumerateLineFragments(forGlyphRange: layoutManager.glyphRange(forCharacterRange: fullRange, actualCharacterRange: nil)) { _, usedRect, _, glyphRange, _ in
+            // Skip continuation fragments produced by word-wrap: only the first
+            // fragment of a logical line (i.e. preceded by \n or at position 0)
+            // gets a line number drawn.
+            var actualGlyphRange = glyphRange
+            let charRange = layoutManager.characterRange(forGlyphRange: glyphRange, actualGlyphRange: &actualGlyphRange)
+            let isNewLogicalLine = charRange.location == 0 || text.character(at: charRange.location - 1) == 10 // '\n'
+            guard isNewLogicalLine else { return }
+            defer { lineNumber += 1 }
 
-            if lineY + lineRect.height < 0 || lineY > self.bounds.height {
-                lineNumber += 1
-                return
-            }
+            let lineY = usedRect.minY - visibleRect.minY
+            if lineY + usedRect.height < 0 || lineY > self.bounds.height { return }
 
             if lineNumber == self.errorLine {
                 // Draw warning icon (Task 2.5)
@@ -446,17 +450,15 @@ final class ErrorGutterRulerView: NSRulerView {
                 let attrStr = NSAttributedString(string: "⚠", attributes: warningAttrs)
                 let strSize = attrStr.size()
                 let drawX = self.bounds.width - strSize.width - 6
-                let drawY = lineY + (lineRect.height - strSize.height) / 2
+                let drawY = lineY + (usedRect.height - strSize.height) / 2
                 attrStr.draw(at: CGPoint(x: drawX, y: drawY))
             } else {
                 let numStr = "\(lineNumber)" as NSString
                 let strSize = numStr.size(withAttributes: attrs)
                 let drawX = self.bounds.width - strSize.width - 8
-                let drawY = lineY + (lineRect.height - strSize.height) / 2
+                let drawY = lineY + (usedRect.height - strSize.height) / 2
                 numStr.draw(at: CGPoint(x: drawX, y: drawY), withAttributes: attrs)
             }
-
-            lineNumber += 1
         }
     }
 
@@ -475,12 +477,17 @@ final class ErrorGutterRulerView: NSRulerView {
         let text = textView.string as NSString
         let fullRange = NSRange(location: 0, length: text.length)
 
-        layoutManager.enumerateLineFragments(forGlyphRange: layoutManager.glyphRange(forCharacterRange: fullRange, actualCharacterRange: nil)) { _, usedRect, _, _, _ in
+        layoutManager.enumerateLineFragments(forGlyphRange: layoutManager.glyphRange(forCharacterRange: fullRange, actualCharacterRange: nil)) { _, usedRect, _, glyphRange, _ in
+            var actualGlyphRange = glyphRange
+            let charRange = layoutManager.characterRange(forGlyphRange: glyphRange, actualGlyphRange: &actualGlyphRange)
+            let isNewLogicalLine = charRange.location == 0 || text.character(at: charRange.location - 1) == 10
+            guard isNewLogicalLine else { return }
+            defer { lineNumber += 1 }
+
             let lineY = usedRect.minY - visibleRect.minY
             if clickPoint.y >= lineY && clickPoint.y <= lineY + usedRect.height && lineNumber == errorLine {
                 self.showPopover(errorMessage: errorMessage, near: CGRect(x: 0, y: lineY, width: self.bounds.width, height: usedRect.height))
             }
-            lineNumber += 1
         }
     }
 
