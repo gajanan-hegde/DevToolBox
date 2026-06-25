@@ -1,6 +1,6 @@
 # DevToolbox
 
-A native macOS developer utility app with a collection of everyday tools - no subscriptions, no telemetry, no internet required.
+A native macOS developer utility app with a collection of everyday tools - no subscriptions, no telemetry, and almost entirely offline. The only network call is optional: the JWT Decoder can fetch public keys from a JWKS endpoint you provide to verify token signatures.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
